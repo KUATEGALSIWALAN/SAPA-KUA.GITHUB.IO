@@ -1,15 +1,600 @@
-html
 <!DOCTYPE html>
-<html>
+<html lang='id'>
 <head>
-    <title>KUA Kecamatan Panti</title>
+    <meta charset='utf-8'/>
+    <meta content='width=device-width,initial-scale=1' name='viewport'/>
+    <title>KUA Kecamatan Tegalsiwalan</title>
+
+    <!-- Menyisipkan Font Awesome untuk memunculkan ikon menu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; line-height: 1.6; }
-        h1 { border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+        /* Palet Warna Elegan Instansi Kemenag */
+        :root {
+            --panel-bg: #ffffff;        
+            --primary-color: #064e3b;    /* Hijau Botol Kemenag */
+            --secondary-color: #b45309;  /* Emas Gelap/Bronze */
+            --text-color: #1e293b;       
+            --text-muted: #64748b;       
+            --border-color: #e2e8f0;     
+            --icon-bg: #f0fdf4;          /* Lingkaran hijau tipis untuk ikon */
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-color);
+            
+            /* Background Soft Gradient */
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e8f5e9 100%);
+            background-attachment: fixed;
+            
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Desain Header Grid Kombinasi Kop & Maklumat */
+        .header-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        @media (max-width: 768px) {
+            .header-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sisi Kiri: Kop Nama Instansi */
+        .header-kop {
+    background-color: #ffffff; /* Mengubah background jadi putih */
+    color: #1b4332;            /* Mengubah warna teks tulisan menjadi hijau tua agar kontras */
+    padding: 20px;
+    border-radius: 15px;       /* Menjaga sudut tetap melengkung seperti di gambar */
+    text-align: center;
+}
+
+        .logo-kemenag {
+            width: 90px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.2));
+        }
+
+        .header-kop h1 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 8px 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .header-kop p {
+            font-size: 13px;
+            color: #a7f3d0;
+            font-weight: 500;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sisi Kanan: Box Maklumat & Kompensasi Pelayanan */
+        .panel-maklumat {
+            background-color: rgba(6, 78, 59, 0.03);
+            border: 2px dashed #0c614b;
+            border-radius: 16px;
+            padding: 20px;
+            font-size: 12px;
+            color: #334155;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .panel-maklumat h4 {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .panel-maklumat p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .panel-maklumat .footer-maklumat {
+            text-align: right;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0;
+        }
+
+        /* Desain Panel Konten Menu Utama */
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        /* SISTEM GRID 9 MENU UTAMA DENGAN IKON */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; 
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 20px -5px rgba(6, 78, 59, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Bulatan Wadah Tempat Ikon Berada */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--icon-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 24px;
+            transition: all 0.25s ease;
+        }
+
+        .menu-card:hover .icon-box {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .menu-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .menu-card p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            height: 36px; 
+            overflow: hidden;
+        }
+
+        /* Desain Tombol Aksi */
+        .btn {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 6px -1px rgba(180, 83, 9, 0.2);
+        }
+
+        .btn-wa {
+            background-color: #16a34a;
+        }
+        .btn-wa:hover {
+            background-color: #15803d;
+            box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 40px;
+            padding: 20px 0;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Selamat Datang di Website KUA Panti</h1>
-    <p>Website ini sedang dalam masa pengembangan menggunakan GitHub Pages.</p>
+    <div class="container">
+        
+        <!-- SEKSI BAGIAN ATAS: KOP KANTOR & MAKLUMAT PELAYANAN -->
+        <div class="header-grid">
+            
+            <!-- Sisi Kiri: Kop Banner Utama -->
+<div class="header-kop" style="background-color: #ffffff; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    
+    <!-- Logo Kemenag (Sudah Bagus & Jelas) -->
+    <img class="logo-kemenag" src="kemenag.png" alt="Logo Kemenag" style="width: 100px; height: auto; margin-bottom: 15px;">
+    
+    <!-- MENGUBAH WARNA TEKS MENJADI HIJAU TUA / GELAP -->
+    <h1 style="color: #0c3823; font-weight: bold; margin: 10px 0 5px 0; font-size: 24px;">KUA KECAMATAN Tegalsiwalan</h1>
+    <p style="color: #2d6a4f; margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 1px;">KABUPATEN PROBOLINGGO — PROVINSI JAWA TIMUR</p>
+    
+</div>
+
+            <!-- Sisi Kanan: Teks Maklumat & Kompensasi Pelayanan Resmi -->
+            <div class="panel-maklumat">
+                <h4><i class="fa-solid fa-gavel"></i> MAKLUMAT PELAYANAN</h4>
+                <p>Kami sanggup menyelenggarakan pelayanan sesuai standar yang ditetapkan; cepat, mudah, transparan, ramah, dan inklusif bagi seluruh masyarakat termasuk Kelompok Rentan. Bila kami tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan.</p>
+                
+                <h4><i class="fa-solid fa-award"></i> KOMPENSASI PELAYANAN</h4>
+                <p>Apabila layanan yang diberikan tidak sesuai, pemberi layanan siap menerima sanksi sesuai peraturan yang berlaku dan pengguna layanan berhak menerima kompensasi/souvenir.</p>
+                
+                <p class="footer-maklumat">— Kepala Kantor Urusan Agama Kecamatan Tegalsiwalan</p>
+            </div>
+
+        </div>
+
+        <!-- PANEL MENU UTAMA (9 MENU UTAMA + IKON MODERN) -->
+        <section class="panel">
+            <h2 class="panel-title">Layanan &amp; Informs Utama</h2>
+            <div class="menu-grid">
+                
+                <!-- PROFIL -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-building-columns"></i></div>
+                    <h3>Profil KUA</h3>
+                    <p>Sekilas sejarah berdirinya Kantor KUA Kecamatan Tegalsiwalan.</p>
+                    <a class="btn" href="profil.html">Buka Profil</a>
+                </div>
+
+                <!-- LAYANAN KUA -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-file-invoice"></i></div>
+                    <h3>Layanan KUA</h3>
+                    <p>Formulir pendaftaran, alur pelayanan, &amp; syarat lengkap.</p>
+                    <a class="btn" href="alur-layanan.html">Buka Layanan</a>
+                </div>
+
+                <!-- KONTAK LAYANAN -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-comments"></i></div>
+                    <h3>Kontak Layanan</h3>
+                    <p>Konsultasi Nikah, Bimwin, Kiblat, Haji, &amp; Wakaf.</p>
+                    <!-- Silakan ganti nomor di bawah ini dengan nomor WA resmi KUA Tegalsiwalan -->
+                    <a class="btn btn-wa" href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat WA</a>
+                </div>
+
+                <!-- BUKU TAMU -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-book-open"></i></div>
+                    <h3>Buku Tamu Digital</h3>
+                    <p>Isi buku tamu kunjungan resmi instansi KUA Tegalsiwalan.</p>
+                    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfA--P67Ji0DS8uGCVlgsvbiRVVANyXT6Q574bBwp29DMvK8Q/viewform" target="_blank">Isi Buku Tamu</a>
+                </div>
+
+                <!-- PENGADUAN -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>Pusat Pengaduan</h3>
+                    <p>Aduan kendala pelayanan langsung masuk ke WhatsApp.</p>
+                    <!-- Silakan ganti nomor di bawah ini dengan nomor WA resmi KUA Tegalsiwalan -->
+                    <a class="btn btn-wa" href="https://wa.me/6281234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> Hubungi WA</a>
+                </div>
+
+                <!-- SURVEI (IKM) -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-square-poll-vertical"></i></div>
+                    <h3>Survei IKM</h3>
+                    <p>Isi Indeks Kepuasan Masyarakat terhadap pelayanan KUA.</p>
+                    <a class="btn" href="https://docs.google.com/forms/d/1s8SqQOV9ohDKxKGm8Bxe_J9Iz7tvSQYij7w5qgBrAjc/viewform?edit_requested=true">Mulai Survei</a>
+                </div>
+
+               <!-- DATA KUA (Sudah Diperbaiki Layout-nya) -->
+<!-- === POTONGAN KODE BARU DATA KUA (TEMPEL DI SINI) === -->
+<div style="background-color: #ffffff; border: 1px solid #edf2f7; border-radius: 12px; padding: 25px 20px; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); justify-content: space-between;">
+    <div style="width: 55px; height: 55px; background-color: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #0c3823; margin-bottom: 15px;">🗄️</div>
+    <h3 style="font-size: 14px; color: #0c3823; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif;">Data KUA</h3>
+    <p style="font-size: 11.5px; color: #718096; line-height: 1.5; margin-bottom: 18px; height: 36px; display: flex; align-items: center; justify-content: center; font-family: 'Plus Jakarta Sans', sans-serif;">Pusat integrasi data sektoral internal KUA Tegalsiwalan.</p>
+    
+    <!-- Tombol yang dipaksa serasi dengan tombol Berita & Nikah -->
+    <button onclick="openDataModal()" style="width: 100%; background-color: #0c3823; color: #ffffff; border: none; padding: 12px 15px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; display: block; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#2d6a4f'" onmouseout="this.style.backgroundColor='#0c3823'">Lihat Data</button>
+</div>
+<!-- =================================================== -->
+                <!-- BERITA -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-newspaper"></i></div>
+                    <h3>Berita &amp; Artikel</h3>
+                    <p>Edukasi bimbingan masyarakat dan kabar kegiatan terkini.</p>
+                    <a class="btn" href="https://kuakecamatanTegalsiwalan.blogspot.com/" target="_blank">Lihat Berita</a>
+                </div>
+
+                <!-- PENGUMUMAN NIKAH -->
+                <div class="menu-card">
+                    <div class="icon-box"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Pengumuman Nikah</h3>
+                    <p>Manifes jadwal kehendak perkawinan resmi (NC) terkini.</p>
+                    <a class="btn" href="pengumuman nikah.html">Cek Jadwal Nikah</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Bagian Kaki Bawah Website -->
+        <footer>
+            <p>&copy; 2026 KUA Kecamatan Tegalsiwalan PROBOLINGGO. Hak Cipta Dilindungi Undang-Undang.</p>
+        </footer>
+    </div>
+<div id="dataKuaModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-database"></i> Pusat Data Informasi KUA Tegalsiwalan</h2>
+            <button class="close-btn" onclick="closeDataModal()">&times;</button>
+        </div>
+        
+        <div class="modal-grid">
+            <a href="PEGAWAI.html" class="grid-item">
+                <div class="icon-box ib-pegawai">👥</div>
+                <h3>Data Pegawai</h3>
+                <p>Profil struktural & staf KUA Kecamatan Tegalsiwalan</p>
+            </a>
+
+            <a href="GEOWAF Tegalsiwalan.html" class="grid-item">
+                <div class="icon-box ib-wakaf">📜</div>
+                <h3>Data Wakaf</h3>
+                <p>Informasi tanah, sertifikasi & administrasi wakaf</p>
+            </a>
+
+            <a href="PASUTRI.html" class="grid-item">
+                <div class="icon-box ib-nikah">💍</div>
+                <h3>Data Pernikahan</h3>
+                <p>Statistik pendaftaran dan peristiwa nikah</p>
+            </a>
+
+            <a href="SIMPATI.html" class="grid-item">
+                <div class="icon-box ib-ibadah">🕌</div>
+                <h3>Tempat Ibadah</h3>
+                <p>Data masjid dan mushala di wilayah Tegalsiwalan</p>
+            </a>
+
+            <a href="SIDALTA_Tegalsiwalan.html" class="grid-item">
+                <div class="icon-box ib-lpq">📖</div>
+                <h3>LPQ & Majlis Taklim</h3>
+                <p>Lembaga Pendidikan Al-Qur'an dan binaan</p>
+            </a>
+
+            <a href="DARMA.html" class="grid-item">
+                <div class="icon-box ib-madrasah">🏫</div>
+                <h3>Madrasah & RA</h3>
+                <p>Data Raudhatul Athfal dan Madrasah formal</p>
+            </a>
+
+            <a href="PANDIMAS.html" class="grid-item">
+                <div class="icon-box ib-ponpes">🕌</div>
+                <h3>Ponpes & Madin</h3>
+                <p>Pondok Pesantren dan Madrasah Diniyah</p>
+            </a>
+
+            <a href="ORMAS.html" class="grid-item">
+                <div class="icon-box ib-ormas">🤝</div>
+                <h3>Data Ormas</h3>
+                <p>Organisasi Kemasyarakatan Islam tingkat kecamatan</p>
+            </a>
+
+            <a href="SENI.html" class="grid-item">
+                <div class="icon-box ib-budaya">🎨</div>
+                <h3>Seni Budaya Islam</h3>
+                <p>Khazanah seni, adat, dan budaya lokal</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+    <style>
+/* Overlay Latar Belakang (Gelap Transparan) */
+.modal-overlay {
+    display: none; /* Tersembunyi default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+/* Kotak Konten Utama */
+.modal-content {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 950px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 25px;
+    animation: slideDown 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Header Pop-up */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.modal-header h2 {
+    color: #0c3823; /* Hijau Tua senada web kamu */
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover {
+    color: #cc0000;
+}
+
+/* Grid Layout 3 Kolom */
+.modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+/* Desain Kartu Menu Pilihan */
+.grid-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.grid-item:hover {
+    background-color: #ffffff;
+    border-color: #2d6a4f;
+    box-shadow: 0 5px 15px rgba(45, 106, 79, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Lingkaran Ikon */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    background-color: #e8f5e9; /* Warna dasar hijau lembut */
+}
+
+/* Detail Teks Menu */
+.grid-item h3 {
+    margin: 0 0 4px 0;
+    color: #1b4332;
+    font-size: 16px;
+    font-weight: 600;
+}
+.grid-item p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Animasi Muncul */
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.services-grid button.btn-action { 
+        width: 100%; 
+        background-color: #0c3823; 
+        color: #ffffff; 
+        border: none; 
+        padding: 10px 15px; 
+        border-radius: 6px; 
+        font-size: 12px; 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: background-color 0.2s; 
+        text-decoration: none; 
+        display: block; 
+        text-align: center; 
+    }
+    .services-grid button.btn-action:hover { 
+        background-color: #2d6a4f; 
+    }
+</style>
+
+<script>
+// Fungsi membuka Pop-up
+function openDataModal() {
+    const modal = document.getElementById('dataKuaModal');
+    modal.style.display = 'flex';
+}
+
+// Fungsi menutup Pop-up
+function closeDataModal() {
+    const modal = document.getElementById('dataKuaModal');
+    modal.style.display = 'none';
+}
+
+// Menutup pop-up otomatis jika user mengklik area luar kotak putih
+window.onclick = function(event) {
+    const modal = document.getElementById('dataKuaModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
 </body>
 </html>
