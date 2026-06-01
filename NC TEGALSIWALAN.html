@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>Papan Pengumuman Kehendak Nikah - KUA Tegalsiwalan</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-green: #2d6a4f;       /* Hijau latar belakang khas SIKEN9 */
+            --panel-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --primary-green: #0c3823;
+            --accent-orange: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-green);
+            color: var(--text-dark);
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* BANNER ATAS (KOP PAPAN PENGUMUMAN) */
+        .banner-kop {
+            background-color: var(--panel-bg);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo-kemenag {
+            width: 55px;
+            height: auto;
+            margin-bottom: 12px;
+        }
+
+        .banner-kop h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .banner-kop p {
+            font-size: 13px;
+            color: #1e293b;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .banner-kop .tanggal-hari {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* BOX PENCARIAN (SEARCH) */
+        .search-container {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .search-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 25px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        /* STATISTIK COUNTER BAR */
+        .stat-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* WRAPPER KARTU MANIFEST */
+        .manifest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* GAYA KARTU VERTIKAL (MANIFEST CARD) */
+        .manifest-card {
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            padding: 10px 15px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-detail {
+            display: block;
+            background-color: var(--accent-orange);
+            color: #ffffff;
+            text-align: center;
+            padding: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .card-body {
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--accent-orange);
+            margin: 10px 0 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            font-size: 11px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 3px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .data-row {
+            margin-bottom: 5px;
+        }
+
+        .data-label {
+            color: var(--text-muted);
+            font-size: 10.5px;
+        }
+
+        .data-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* LOADING & ERROR */
+        .status-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #ffffff;
+            padding: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="banner-kop">
+            <img class="logo-kemenag" src="kemenag.png" alt="Logo Kemenag">
+            <h1>Papan Pengumuman Kehendak Nikah</h1>
+            <p>Kantor Urusan Agama Kecamatan Tegalsiwalan</p>
+            <div class="tanggal-hari" id="currentDate">Memuat tanggal...</div>
+        </header>
+
+        <div class="search-container">
+            <div class="search-title"><i class="fa-solid fa-magnifying-glass"></i> Cari Pengumuman</div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ketikkan nama calon pengantin laki-laki atau perempuan..." oninput="searchManifest()">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+
+        <div class="stat-bar">
+            <div class="stat-card">
+                <i class="fa-solid fa-chart-simple"></i> Total Pengumuman: <span id="totalCount">0</span>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-eye"></i> Status: Publik Resmi
+            </div>
+        </div>
+
+        <main class="manifest-grid" id="manifestContainer">
+            <div class="status-msg">
+                <i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke pusat data manifest kehendak nikah...
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // Tautan Spreadsheet CSV Data Nikah Anda
+        const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_rfNkTPFHfc_lxmcG1ZIwHfWtDUtnAvAPcVZIireqJyXOBlC8lsnAPZXpKAfJJxshcmf-rGPVdFs/pub?output=csv";
+        
+        let allManifests = [];
+
+        // Tampilkan Tanggal Hari Ini secara Otomatis di Kop Berita
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').innerText = "Tercatat Per Hari Ini: " + new Date().toLocaleDateString('id-ID', options);
+
+        document.addEventListener("DOMContentLoaded", fetchManifestData);
+
+        async function fetchManifestData() {
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) throw new Error("Gagal mengambil respon server.");
+                const text = await response.text();
+                parseAndBuildManifest(text);
+            } catch (error) {
+                document.getElementById("manifestContainer").innerHTML = `
+                    <div class="status-msg" style="color: #fecaca;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat Papan Pengumuman Digital. Hubungi Operator SMK/KUA untuk memeriksa publikasi Spreadsheet.
+                    </div>`;
+            }
+        }
+
+        function parseAndBuildManifest(text) {
+            const lines = text.split(/\r?\n/);
+            if (lines.length <= 1) return;
+
+            allManifests = [];
+            
+            // Membaca baris spreadsheet (Dimulai dari baris ke-2 / indeks 1)
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim() === "") continue;
+                const columns = parseCSVLine(lines[i]);
+                
+                // Pastikan susunan indeks kolom [0, 1, 2...] di bawah ini pas dengan urutan kolom di Google Sheets Anda
+                if (columns.length >= 10) { 
+                    allManifests.push({
+                        noDaftar: columns[0] || '-',
+                        
+                        // Laki-laki
+                        namaCata: columns[1] || '-',
+                        binCata: columns[2] || '-',
+                        umurCata: columns[3] || '-',
+                        alamatCata: columns[4] || '-',
+                        
+                        // Perempuan
+                        namaCati: columns[5] || '-',
+                        bintiCati: columns[6] || '-',
+                        umurCati: columns[7] || '-',
+                        alamatCati: columns[8] || '-',
+                        
+                        // Jadwal Akad
+                        tglAkad: columns[9] || '-',
+                        jamAkad: columns[10] || '-',
+                        lokasiAkad: columns[11] || '-',
+                        penghulu: columns[12] || '-'
+                    });
+                }
+            }
+            renderCards(allManifests);
+        }
+
+        function parseCSVLine(line) {
+            let arr = []; let quote = false; let cell = "";
+            for (let i = 0; i < line.length; i++) {
+                let char = line[i];
+                if (char === '"') { quote = !quote; }
+                else if (char === ',' && !quote) { arr.push(cell.trim()); cell = ""; }
+                else { cell += char; }
+            }
+            arr.push(cell.trim());
+            return arr;
+        }
+
+        function renderCards(data) {
+            const container = document.getElementById("manifestContainer");
+            document.getElementById("totalCount").innerText = data.length;
+            container.innerHTML = "";
+
+            if (data.length === 0) {
+                container.innerHTML = `<div class="status-msg"><i class="fa-solid fa-magnifying-glass-minus"></i> Tidak ada jadwal atau nama pengantin yang cocok.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                container.innerHTML += `
+                    <div class="manifest-card">
+                        <div class="card-header"><i class="fa-solid fa-hashtag"></i> ${item.noDaftar}</div>
+                        <a href="#" class="btn-detail"><i class="fa-solid fa-eye"></i> Detail Lengkap</a>
+                        
+                        <div class="card-body">
+                            <div class="section-title">🧍 Calon Pengantin Laki-Laki</div>
+                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaCata}</div></div>
+                            <div class="data-row"><div class="data-label">Bin</div><div class="data-value">${item.binCata}</div></div>
+                            <div class="data-row"><div class="data-label">Umur / Alamat</div><div class="data-value">${item.umurCata} Thn / ${item.alamatCata}</div></div>
+
+                            <div class="section-title">🧍‍♀️ Calon Pengantin Perempuan</div>
+                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaCati}</div></div>
+                            <div class="data-row"><div class="data-label">Binti</div><div class="data-value">${item.bintiCati}</div></div>
+                            <div class="data-row"><div class="data-label">Umur / Alamat</div><div class="data-value">${item.umurCati} Thn / ${item.alamatCati}</div></div>
+
+                            <div class="section-title">📅 Waktu & Tempat Akad</div>
+                            <div class="data-row"><div class="data-label">Hari, Tanggal & Jam</div><div class="data-value">${item.tglAkad} — Pukul ${item.jamAkad} WIB</div></div>
+                            <div class="data-row"><div class="data-label">Lokasi / Keterangan</div><div class="data-value">${item.lokasiAkad}</div></div>
+                            <div class="data-row"><div class="data-label">Penghulu / Wali</div><div class="data-value">${item.penghulu}</div></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function searchManifest() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const filtered = allManifests.filter(item => {
+                return item.namaCata.toLowerCase().includes(query) || 
+                       item.namaCati.toLowerCase().includes(query) || 
+                       item.noDaftar.toLowerCase().includes(query) ||
+                       item.alamatCata.toLowerCase().includes(query);
+            });
+            renderCards(filtered);
+        }
+    </script>
+</body>
+</html>
