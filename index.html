@@ -571,7 +571,8 @@
                             <p>Edukasi bimbingan masyarakat dan kabar kegiatan terkini.</p>
                         </div>
                     </div>
-                    <a class="btn-action" href="https://kuategalsiwalannews.blogspot.com/">Lihat Berita</a>
+                    <!-- Update Link Blogspot Baru -->
+                    <a class="btn-action" href="https://kuategalsiwalannews.blogspot.com/" target="_blank">Lihat Berita</a>
                 </div>
 
                 <!-- PENGUMUMAN NIKAH -->
@@ -589,11 +590,157 @@
         </section>
 
         <!-- SEKSI BERITA TERBARU -->
+        <!-- SEKSI BERITA TERBARU (OTOMATIS 3 BERITA DARI BLOGSPOT) -->
         <section class="berita-section">
             <h2 class="section-title">Berita Terbaru</h2>
-            <div class="berita-placeholder">
-                <i class="fa-solid fa-circle-info"></i> Belum ada berita baru yang dipublikasikan saat ini.
+            <div id="blogspot-news-container" class="berita-grid-container">
+                <!-- Loading State sebelum berita muncul -->
+                <div class="berita-placeholder">
+                    <i class="fa-solid fa-spinner fa-spin"></i> Memuat berita terbaru...
+                </div>
             </div>
+        </section>
+
+    </main>
+
+    <!-- Tambahan CSS Baru khusus untuk Grid 3 Berita -->
+    <style>
+        .berita-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .news-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .news-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #f1f5f9;
+        }
+        .news-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .news-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0c3823;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .news-snippet {
+            font-size: 12.5px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .btn-read-more {
+            font-size: 12px;
+            font-weight: 600;
+            color: #2d6a4f;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        @media (max-width: 768px) {
+            .berita-grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <!-- Script JavaScript untuk Mengambil 3 Berita Otomatis -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // URL Feed Blogspot dikonfigurasi hanya mengambil max-results=3 dalam format JSON
+            const blogUrl = "https://kuategalsiwalannews.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=3&callback=loadBloggerNews";
+            
+            const script = document.createElement("script");
+            script.src = blogUrl;
+            document.body.appendChild(script);
+        });
+
+        function loadBloggerNews(json) {
+            const container = document.getElementById("blogspot-news-container");
+            if (!json.feed.entry || json.feed.entry.length === 0) {
+                container.innerHTML = '<div class="berita-placeholder"><i class="fa-solid fa-circle-info"></i> Belum ada berita baru saat ini.</div>';
+                return;
+            }
+
+            let htmlContent = "";
+            const entries = json.feed.entry;
+
+            for (let i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                const title = entry.title.$t;
+                
+                // Cari link artikel asli
+                let postUrl = "#";
+                for (let j = 0; j < entry.link.length; j++) {
+                    if (entry.link[j].rel === "alternate") {
+                        postUrl = entry.link[j].href;
+                        break;
+                    }
+                }
+
+                // Ambil ringkasan teks berita
+                let snippet = "";
+                if (entry.summary) {
+                    snippet = entry.summary.$t;
+                } else if (entry.content) {
+                    snippet = entry.content.$t.replace(/<[^>]*>/g, ""); // Hapus tag HTML
+                }
+                if (snippet.length > 100) snippet = snippet.substring(0, 100) + "...";
+
+                // Ambil gambar thumbnail postingan, jika tidak ada pakai gambar default masjid/kemenag
+                let thumbUrl = "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=400"; 
+                if (entry.media$thumbnail) {
+                    // Mengubah resolusi thumbnail bawaan blogspot agar tidak buram (s72-c -> w400)
+                    thumbUrl = entry.media$thumbnail.url.replace("s72-c", "w400");
+                }
+
+                htmlContent += `
+                    <div class="news-card">
+                        <img src="${thumbUrl}" alt="${title}" class="news-thumb">
+                        <div class="news-content">
+                            <div>
+                                <h3 class="news-title">${title}</h3>
+                                <p class="news-snippet">${snippet}</p>
+                            </div>
+                            <a href="${postUrl}" target="_blank" class="btn-read-more">Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = htmlContent;
+        }
+    </script>
         </section>
 
     </main>
