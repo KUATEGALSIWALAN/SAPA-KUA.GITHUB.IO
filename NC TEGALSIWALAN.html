@@ -12,7 +12,7 @@
 
     <style>
         :root {
-            --bg-green: #2d6a4f;       /* Hijau latar belakang khas SIKEN9 */
+            --bg-green: #2d6a4f;       
             --panel-bg: #ffffff;
             --text-dark: #0f172a;
             --text-muted: #64748b;
@@ -161,21 +161,20 @@
             background-color: var(--primary-green);
             color: #ffffff;
             padding: 10px 15px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .btn-detail {
-            display: block;
+        .badge-status {
             background-color: var(--accent-orange);
-            color: #ffffff;
-            text-align: center;
-            padding: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
         }
 
         .card-body {
@@ -185,8 +184,8 @@
 
         .section-title {
             font-weight: 700;
-            color: var(--accent-orange);
-            margin: 10px 0 6px 0;
+            color: var(--primary-green);
+            margin: 12px 0 6px 0;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -202,6 +201,8 @@
 
         .data-row {
             margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
         }
 
         .data-label {
@@ -229,7 +230,7 @@
     <div class="container">
         
         <header class="banner-kop">
-            <img class="logo-kemenag" src="kemenag.png" alt="Logo Kemenag">
+            <img class="logo-kemenag" src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_Kementerian_Agama_Republik_Indonesia.png" alt="Logo Kemenag">
             <h1>Papan Pengumuman Kehendak Nikah</h1>
             <p>Kantor Urusan Agama Kecamatan Tegalsiwalan</p>
             <div class="tanggal-hari" id="currentDate">Memuat tanggal...</div>
@@ -238,7 +239,7 @@
         <div class="search-container">
             <div class="search-title"><i class="fa-solid fa-magnifying-glass"></i> Cari Pengumuman</div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Ketikkan nama calon pengantin laki-laki atau perempuan..." oninput="searchManifest()">
+                <input type="text" id="searchInput" placeholder="Ketikkan nama pengantin (suami/istri) atau alamat..." oninput="searchManifest()">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
@@ -254,19 +255,19 @@
 
         <main class="manifest-grid" id="manifestContainer">
             <div class="status-msg">
-                <i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke pusat data manifest kehendak nikah...
+                <i class="fa-solid fa-spinner fa-spin"></i> Menghubungkan ke pusat data kehendak nikah...
             </div>
         </main>
 
     </div>
 
     <script>
-        // Tautan Spreadsheet CSV Data Nikah Anda
+        // Rujukan Link Spreadsheet CSV Data Nikah Sesuai Permintaan
         const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQg_rfNkTPFHfc_lxmcG1ZIwHfWtDUtnAvAPcVZIireqJyXOBlC8lsnAPZXpKAfJJxshcmf-rGPVdFs/pub?output=csv";
         
         let allManifests = [];
 
-        // Tampilkan Tanggal Hari Ini secara Otomatis di Kop Berita
+        // Setup tanggal hari ini di kop
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('currentDate').innerText = "Tercatat Per Hari Ini: " + new Date().toLocaleDateString('id-ID', options);
 
@@ -275,13 +276,13 @@
         async function fetchManifestData() {
             try {
                 const response = await fetch(csvUrl);
-                if (!response.ok) throw new Error("Gagal mengambil respon server.");
+                if (!response.ok) throw new Error("Gagal mengambil data.");
                 const text = await response.text();
                 parseAndBuildManifest(text);
             } catch (error) {
                 document.getElementById("manifestContainer").innerHTML = `
                     <div class="status-msg" style="color: #fecaca;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat Papan Pengumuman Digital. Hubungi Operator SMK/KUA untuk memeriksa publikasi Spreadsheet.
+                        <i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat Papan Pengumuman Digital. Pastikan pengaturan publish Spreadsheet Anda sudah benar.
                     </div>`;
             }
         }
@@ -292,33 +293,23 @@
 
             allManifests = [];
             
-            // Membaca baris spreadsheet (Dimulai dari baris ke-2 / indeks 1)
+            // Membaca baris dimulai dari indeks ke-1 (baris ke-2 setelah header)
             for (let i = 1; i < lines.length; i++) {
                 if (lines[i].trim() === "") continue;
                 const columns = parseCSVLine(lines[i]);
                 
-                // Pastikan susunan indeks kolom [0, 1, 2...] di bawah ini pas dengan urutan kolom di Google Sheets Anda
-                if (columns.length >= 10) { 
+                // Memastikan kolom terisi sesuai dengan struktur 9 kolom yang diminta
+                if (columns.length >= 9) { 
                     allManifests.push({
-                        noDaftar: columns[0] || '-',
-                        
-                        // Laki-laki
-                        namaCata: columns[1] || '-',
-                        binCata: columns[2] || '-',
-                        umurCata: columns[3] || '-',
-                        alamatCata: columns[4] || '-',
-                        
-                        // Perempuan
-                        namaCati: columns[5] || '-',
-                        bintiCati: columns[6] || '-',
-                        umurCati: columns[7] || '-',
-                        alamatCati: columns[8] || '-',
-                        
-                        // Jadwal Akad
-                        tglAkad: columns[9] || '-',
-                        jamAkad: columns[10] || '-',
-                        lokasiAkad: columns[11] || '-',
-                        penghulu: columns[12] || '-'
+                        namaSuami: columns[0] || '-',
+                        namaIstri: columns[1] || '-',
+                        alamatSuami: columns[2] || '-',
+                        alamatIstri: columns[3] || '-',
+                        hariAkad: columns[4] || '-',
+                        tglAkad: columns[5] || '-',
+                        jamAkad: columns[6] || '-',
+                        nikahDi: columns[7] || '-',
+                        penghulu: columns[8] || '-'
                     });
                 }
             }
@@ -347,27 +338,28 @@
                 return;
             }
 
-            data.forEach(item => {
+            data.forEach((item, index) => {
                 container.innerHTML += `
                     <div class="manifest-card">
-                        <div class="card-header"><i class="fa-solid fa-hashtag"></i> ${item.noDaftar}</div>
-                        <a href="#" class="btn-detail"><i class="fa-solid fa-eye"></i> Detail Lengkap</a>
+                        <div class="card-header">
+                            <span><i class="fa-solid fa-heart"></i> Pengumuman #${index + 1}</span>
+                            <span class="badge-status">Siap Akad</span>
+                        </div>
                         
                         <div class="card-body">
-                            <div class="section-title">🧍 Calon Pengantin Laki-Laki</div>
-                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaCata}</div></div>
-                            <div class="data-row"><div class="data-label">Bin</div><div class="data-value">${item.binCata}</div></div>
-                            <div class="data-row"><div class="data-label">Umur / Alamat</div><div class="data-value">${item.umurCata} Thn / ${item.alamatCata}</div></div>
+                            <div class="section-title">🧍 Calon Suami</div>
+                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaSuami}</div></div>
+                            <div class="data-row"><div class="data-label">Alamat</div><div class="data-value">${item.alamatSuami}</div></div>
 
-                            <div class="section-title">🧍‍♀️ Calon Pengantin Perempuan</div>
-                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaCati}</div></div>
-                            <div class="data-row"><div class="data-label">Binti</div><div class="data-value">${item.bintiCati}</div></div>
-                            <div class="data-row"><div class="data-label">Umur / Alamat</div><div class="data-value">${item.umurCati} Thn / ${item.alamatCati}</div></div>
+                            <div class="section-title">🧍‍♀️ Calon Istri</div>
+                            <div class="data-row"><div class="data-label">Nama</div><div class="data-value">${item.namaIstri}</div></div>
+                            <div class="data-row"><div class="data-label">Alamat</div><div class="data-value">${item.alamatIstri}</div></div>
 
-                            <div class="section-title">📅 Waktu & Tempat Akad</div>
-                            <div class="data-row"><div class="data-label">Hari, Tanggal & Jam</div><div class="data-value">${item.tglAkad} — Pukul ${item.jamAkad} WIB</div></div>
-                            <div class="data-row"><div class="data-label">Lokasi / Keterangan</div><div class="data-value">${item.lokasiAkad}</div></div>
-                            <div class="data-row"><div class="data-label">Penghulu / Wali</div><div class="data-value">${item.penghulu}</div></div>
+                            <div class="section-title">📅 Pelaksanaan Akad</div>
+                            <div class="data-row"><div class="data-label">Hari & Tanggal</div><div class="data-value">${item.hariAkad}, ${item.tglAkad}</div></div>
+                            <div class="data-row"><div class="data-label">Jam</div><div class="data-value">${item.jamAkad} WIB</div></div>
+                            <div class="data-row"><div class="data-label">Nikah Di (Lokasi)</div><div class="data-value">${item.nikahDi}</div></div>
+                            <div class="data-row"><div class="data-label">Penghulu</div><div class="data-value">${item.penghulu}</div></div>
                         </div>
                     </div>
                 `;
@@ -377,10 +369,10 @@
         function searchManifest() {
             const query = document.getElementById("searchInput").value.toLowerCase();
             const filtered = allManifests.filter(item => {
-                return item.namaCata.toLowerCase().includes(query) || 
-                       item.namaCati.toLowerCase().includes(query) || 
-                       item.noDaftar.toLowerCase().includes(query) ||
-                       item.alamatCata.toLowerCase().includes(query);
+                return item.namaSuami.toLowerCase().includes(query) || 
+                       item.namaIstri.toLowerCase().includes(query) || 
+                       item.alamatSuami.toLowerCase().includes(query) ||
+                       item.alamatIstri.toLowerCase().includes(query);
             });
             renderCards(filtered);
         }
