@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil KUA Kecamatan Tegalsiwalan, Probolinggo</title>
+<style>
+  :root{
+    --hijau-tua:#0f4d3c;
+    --hijau:#1c7a56;
+    --emas:#c9a227;
+    --krem:#faf7ee;
+    --teks:#2c2a24;
+    --abu:#6b6558;
+    --garis:#e2dcc8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Georgia","Times New Roman",serif;
+    background:var(--krem);
+    color:var(--teks);
+    line-height:1.65;
+  }
+  header.hero{
+    background:linear-gradient(135deg,var(--hijau-tua),var(--hijau) 70%);
+    color:#fff;
+    padding:64px 24px 56px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 80% 20%, rgba(201,162,39,0.25), transparent 55%);
+  }
+  header.hero .eyebrow{
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    font-size:.75rem;
+    color:var(--emas);
+    font-family:Arial, sans-serif;
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:2.4rem;
+    margin:0 0 10px;
+    font-weight:700;
+  }
+  header.hero p.sub{
+    font-family:Arial, sans-serif;
+    font-size:1rem;
+    max-width:640px;
+    margin:0 auto;
+    color:#eef5ef;
+  }
+  nav.tabs{
+    background:#fff;
+    border-bottom:1px solid var(--garis);
+    position:sticky;
+    top:0;
+    z-index:10;
+    font-family:Arial, sans-serif;
+  }
+  nav.tabs ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:4px;
+    margin:0;
+    padding:10px 16px;
+  }
+  nav.tabs a{
+    display:block;
+    padding:10px 18px;
+    text-decoration:none;
+    color:var(--hijau-tua);
+    font-size:.9rem;
+    border-radius:999px;
+    transition:background .2s;
+  }
+  nav.tabs a:hover{background:var(--krem);}
+
+  main{max-width:920px;margin:0 auto;padding:48px 24px 80px;}
+
+  section{margin-bottom:64px;}
+  section h2{
+    font-size:1.6rem;
+    color:var(--hijau-tua);
+    border-left:5px solid var(--emas);
+    padding-left:16px;
+    margin-bottom:24px;
+  }
+  section h3{
+    font-family:Arial, sans-serif;
+    font-size:1.05rem;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--hijau);
+    margin:28px 0 10px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid var(--garis);
+    border-radius:10px;
+    padding:28px 30px;
+    box-shadow:0 2px 10px rgba(15,77,60,0.05);
+  }
+  .lead{font-size:1.05rem;}
+  .desa-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:10px;
+    font-family:Arial, sans-serif;
+    font-size:.92rem;
+    margin-top:16px;
+  }
+  .desa-grid span{
+    background:var(--krem);
+    border:1px solid var(--garis);
+    border-radius:6px;
+    padding:8px 12px;
+    text-align:center;
+  }
+  .visi-box{
+    background:var(--hijau-tua);
+    color:#fff;
+    border-radius:10px;
+    padding:30px;
+    text-align:center;
+    margin:20px 0 30px;
+  }
+  .visi-box .label{
+    font-family:Arial, sans-serif;
+    letter-spacing:.15em;
+    font-size:.75rem;
+    color:var(--emas);
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .visi-box p{
+    font-style:italic;
+    font-size:1.15rem;
+    margin:0;
+  }
+  ol.misi, ol.tupoksi{
+    padding-left:22px;
+  }
+  ol.misi li, ol.tupoksi li{
+    margin-bottom:8px;
+  }
+  .moto{
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--hijau);
+    letter-spacing:.02em;
+    padding:18px;
+    border-top:2px dashed var(--garis);
+    border-bottom:2px dashed var(--garis);
+    margin:26px 0;
+  }
+  table.program{
+    width:100%;
+    border-collapse:collapse;
+    font-family:Arial, sans-serif;
+    font-size:.88rem;
+  }
+  table.program th{
+    background:var(--hijau-tua);
+    color:#fff;
+    text-align:left;
+    padding:10px 12px;
+  }
+  table.program td{
+    border-bottom:1px solid var(--garis);
+    padding:10px 12px;
+    vertical-align:top;
+  }
+  table.program tr:nth-child(even) td{background:var(--krem);}
+  .badge{
+    display:inline-block;
+    background:var(--emas);
+    color:#3a2f00;
+    font-size:.75rem;
+    font-weight:700;
+    border-radius:5px;
+    padding:2px 8px;
+    font-family:Arial, sans-serif;
+  }
+  .struktur-frame{
+    width:100%;
+    aspect-ratio:4/3;
+    border:1px solid var(--garis);
+    border-radius:10px;
+    overflow:hidden;
+    background:#f2f0e6;
+  }
+  .struktur-frame iframe{width:100%;height:100%;border:0;}
+  .struktur-note{
+    font-family:Arial, sans-serif;
+    font-size:.85rem;
+    color:var(--abu);
+    margin-top:12px;
+  }
+  .kontak{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    font-family:Arial, sans-serif;
+    font-size:.92rem;
+  }
+  .kontak div{flex:1;min-width:220px;}
+  .kontak strong{display:block;color:var(--hijau-tua);margin-bottom:4px;}
+  footer{
+    background:var(--hijau-tua);
+    color:#dcefe3;
+    padding:40px 24px;
+    font-family:Arial, sans-serif;
+    font-size:.85rem;
+  }
+  footer .foot-wrap{max-width:920px;margin:0 auto;}
+  footer h4{color:#fff;margin-bottom:10px;}
+  footer ol{padding-left:18px;margin:0;}
+  footer ol li{margin-bottom:6px;word-break:break-all;}
+  footer .copy{
+    margin-top:24px;
+    padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.15);
+    color:#9fc4b2;
+    font-size:.8rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Kementerian Agama Republik Indonesia</div>
+  <h1>Kantor Urusan Agama (KUA)<br>Kecamatan Tegalsiwalan</h1>
+  <p class="sub">Kabupaten Probolinggo, Jawa Timur — Semangat Melayani dan Selalu Memberikan yang Terbaik</p>
+</header>
+
+<nav class="tabs">
+  <ul>
+    <li><a href="#sejarah">Sejarah</a></li>
+    <li><a href="#tupoksi">Tugas &amp; Fungsi</a></li>
+    <li><a href="#visimisi">Visi &amp; Misi</a></li>
+    <li><a href="#program">Program Kerja</a></li>
+    <li><a href="#struktur">Struktur Kerja</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <section id="sejarah">
+    <h2>Sejarah Berdirinya KUA</h2>
+    <div class="card">
+      <p class="lead">Jauh sebelum Indonesia merdeka pada 17 Agustus 1945, bangsa Indonesia sudah memiliki lembaga kepenghuluan sejak masa Kesultanan Mataram. Kesultanan saat itu mengangkat pejabat khusus di bidang kepenghuluan.</p>
+      <p>Pada masa Pemerintahan Kolonial Belanda, lembaga kepenghuluan diatur sebagai lembaga swasta melalui sejumlah ordonansi, di antaranya <em>Huwelijk Ordonantie</em> S. 1929 No. 348 jo S. 1931 No. 467, <em>Vorstenlandsche Huwelijk Ordonantie</em> S. 1933 No. 98, dan <em>Huwelijs Ordonantie Buitengewesten</em> S. 1932 No. 482. Lembaga ini berada di bawah pengawasan Bupati, dengan penghasilan pegawainya berasal dari biaya nikah, talak, dan rujuk yang dihimpun dalam kas masjid.</p>
+      <p>Pada masa pendudukan Jepang, tahun 1943 didirikan Kantor Shumubu (KUA) di Jakarta. KH. Hasyim Asy'ari — pendiri Pondok Pesantren Tebuireng Jombang dan Nahdlatul Ulama — ditunjuk sebagai Kepala Shumubu untuk wilayah Jawa dan Madura, dengan pelaksanaan tugas sehari-hari diserahkan kepada putranya, K. Wahid Hasyim, hingga akhir pendudukan Jepang pada Agustus 1945.</p>
+      <p>Setelah kemerdekaan, Menteri Agama H.M. Rasjidi mengeluarkan Maklumat No. 2 tanggal 23 April 1946 yang menaungi seluruh lembaga keagamaan ke dalam Kementerian Agama. Kementerian Agama Republik Indonesia resmi berdiri pada 3 Januari 1946 melalui Penetapan Pemerintah No. 1/SD Tahun 1946, sebagai pengukuhan dan peningkatan status Shumubu di masa penjajahan Jepang sekaligus wujud pengamalan sila Ketuhanan Yang Maha Esa dan Pasal 29 UUD 1945.</p>
+      <p>Di Jawa Timur, sejak 1948 hingga 1951 dibentuk Kantor Agama Provinsi, Kantor Agama Daerah tingkat Karesidenan, dan Kantor Kepenghuluan tingkat Kabupaten yang menangani bidang kepenghuluan, kemasjidan, wakaf, dan peradilan agama. Selanjutnya, terbitnya Keputusan Menteri Agama (KMA) Nomor 517 Tahun 2001 tentang Penataan Organisasi KUA Kecamatan menegaskan kedudukan KUA di tingkat kecamatan, bertanggung jawab kepada Kepala Kantor Kementerian Agama Kabupaten/Kota, sehingga eksistensinya sebagai institusi pemerintah memiliki landasan hukum yang kuat.</p>
+
+      <h3>Wilayah Kerja</h3>
+      <p>Kecamatan Tegalsiwalan meliputi 12 desa dengan luas wilayah 422,723 km² dan kode wilayah 35.13.20.</p>
+      <div class="desa-grid">
+        <span>Tegalsiwalan</span>
+        <span>Banjarsawah</span>
+        <span>Blado Kulon</span>
+        <span>Bulujaran Lor</span>
+        <span>Bulujaran Kidul</span>
+        <span>Gunungbekel</span>
+        <span>Paras</span>
+        <span>Sumberkledung</span>
+        <span>Tegalmojo</span>
+        <span>Tegalsono</span>
+        <span>Sumberbulu</span>
+        <span>Malasan Wetan</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="tupoksi">
+    <h2>Tugas Pokok dan Fungsi (Tupoksi)</h2>
+    <div class="card">
+      <p>Berdasarkan PMA Nomor 24 Tahun 2024 Pasal 3 Ayat (1), KUA Kecamatan Tegalsiwalan Kabupaten Probolinggo menjalankan fungsi:</p>
+      <ol class="tupoksi">
+        <li>Pelaksanaan pelayanan, pengawasan, pencatatan, dan pelaporan nikah dan rujuk</li>
+        <li>Penyusunan statistik layanan dan bimbingan masyarakat Islam</li>
+        <li>Pengelolaan dokumentasi dan sistem informasi manajemen KUA Kecamatan</li>
+        <li>Pelayanan bimbingan keluarga sakinah</li>
+        <li>Pelayanan bimbingan kemasjidan</li>
+        <li>Pelayanan bimbingan hisab rukyat dan pembinaan syari'ah</li>
+        <li>Pelayanan bimbingan dan penerangan agama Islam</li>
+        <li>Pelayanan bimbingan zakat dan wakaf</li>
+        <li>Pelaksanaan ketatausahaan dan kerumahtanggaan KUA Kecamatan</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="visimisi">
+    <h2>Visi, Misi &amp; Moto</h2>
+    <div class="card">
+      <div class="visi-box">
+        <div class="label">Visi</div>
+        <p>"Terwujudnya Masyarakat Kecamatan Tegalsiwalan yang Taat Beragama, Rukun, Cerdas dan Sejahtera Lahir Batin, Mandiri dan Berkepribadian Berlandaskan Gotong Royong"</p>
+      </div>
+      <h3>Misi</h3>
+      <ol class="misi">
+        <li>Meningkatkan Pelayanan Nikah dan Rujuk</li>
+        <li>Meningkatkan Pelayanan Keluarga Sakinah</li>
+        <li>Meningkatkan Pelayanan Wakaf</li>
+        <li>Meningkatkan Pelayanan Produk Halal</li>
+        <li>Meningkatkan Pelayanan Ibadah Sosial</li>
+        <li>Meningkatkan Pelayanan Kemitraan Umat</li>
+        <li>Meningkatkan Pelayanan Kesejahteraan Masjid</li>
+        <li>Meningkatkan Pelayanan Ibadah Haji</li>
+      </ol>
+      <div class="moto">"Semangat Melayani dan Selalu Memberikan yang Terbaik"</div>
+    </div>
+  </section>
+
+  <section id="program">
+    <h2>Program Kerja KUA se-Probolinggo</h2>
+    <div class="card">
+      <p>Program kerja disusun bersama Seksi Bimas Kantor Kementerian Agama Kabupaten Probolinggo, mencakup lima bidang utama sebagai berikut.</p>
+      <table class="program">
+        <thead>
+          <tr><th>No</th><th>Bidang</th><th>Ringkasan Kegiatan</th><th>Target Waktu</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Administrasi Persuratan</td>
+            <td>Penertiban buku pokok KUA, ordner arsip, penataan ruangan, pembuatan SOP/SPM, standar papan kantor, brosur pelayanan, aplikasi persuratan terpadu, serta pembuatan akun Facebook, YouTube, dan website KUA/Bimas.</td>
+            <td><span class="badge">Akhir Tahun</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>SDM KUA (PNS &amp; Non-PNS)</td>
+            <td>Pengawasan kinerja pegawai, penyeragaman Anjab-ABK, pembuatan job deskripsi, pendampingan pembelajaran aplikasi KUA, usulan anggaran PTT/Pramubakti, penyeragaman SKP, bukti fisik angka kredit penghulu, dan kerapian seragam.</td>
+            <td><span class="badge">Sepanjang Tahun</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Sarana &amp; Prasarana</td>
+            <td>Standarisasi komputer, printer, scanner, kursi-meja-almari, brangkas Naskah Akad (NA), penambahan ruang arsip, serta pengadaan/sertifikasi tanah.</td>
+            <td><span class="badge">1 Tahun</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Sistem Informatika KUA</td>
+            <td>Penataan file &amp; folder PC, pengarsipan digital, penyusunan Renstra Bimas dan KUA 5 tahunan, serta pengamanan akun aplikasi seperti SIMKAH, SIMPONI, SIEKA, SIMPENAIS, SIMAS, SIWAK, PNBP NR, SIK, dan EDUPAK.</td>
+            <td><span class="badge">Maret &ndash; Akhir Tahun</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Pengembangan Pelayanan</td>
+            <td>Tertib unggah berita kegiatan, kegiatan FGD penghulu, sinergi lintas sektoral (BPN, Dispenduk, Pengadilan Agama, Kejaksaan), serta penyusunan buku panduan masjid, musholla, dan standar KUA.</td>
+            <td><span class="badge">Berkala</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="struktur">
+    <h2>Struktur Kerja</h2>
+    <div class="card">
+      <p>Bagan struktur organisasi KUA Kecamatan Tegalsiwalan tersedia pada dokumen resmi yang dipublikasikan melalui Google Drive.</p>
+      <div class="struktur-frame">
+        <iframe src="https://drive.google.com/file/d/1ywjHxsBC7zEroG5dwl4pQgqEYmVlUW22/preview" allow="autoplay"></iframe>
+      </div>
+      <p class="struktur-note">Jika gambar tidak tampil, buka langsung melalui tautan sumber:
+        <a href="https://drive.google.com/file/d/1ywjHxsBC7zEroG5dwl4pQgqEYmVlUW22/view" target="_blank" rel="noopener">drive.google.com/file/d/1ywjHxsBC7zEroG5dwl4pQgqEYmVlUW22</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <h2>Kontak &amp; Layanan</h2>
+    <div class="card">
+      <div class="kontak">
+        <div>
+          <strong>Alamat</strong>
+          Jalan Raya Lumajang, Kecamatan Tegalsiwalan, Kabupaten Probolinggo, Jawa Timur
+        </div>
+        <div>
+          <strong>Telepon</strong>
+          0812-5235-6139
+        </div>
+        <div>
+          <strong>Email</strong>
+          kuategalsiwalan70@gmail.com
+        </div>
+        <div>
+          <strong>Jam Pelayanan</strong>
+          Senin&ndash;Kamis: 07.30&ndash;16.00<br>
+          Jumat: 07.30&ndash;16.30
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-wrap">
+    <h4>Sumber Referensi</h4>
+    <ol>
+      <li>Sejarah Berdirinya Kantor Urusan Agama — kuategalsiwalannews.blogspot.com/2025/10/sejarah-berdirinya-kantor-urusan-agama.html</li>
+      <li>Program Kerja KUA Tegal Siwalan — kuategalsiwalannews.blogspot.com/2025/10/program-kerja-kua-tegal-siwalan.html</li>
+      <li>Dokumen Struktur Kerja KUA Tegalsiwalan — Google Drive (drive.google.com/file/d/1ywjHxsBC7zEroG5dwl4pQgqEYmVlUW22/view)</li>
+    </ol>
+    <div class="copy">Disusun berdasarkan informasi resmi dari website KUA Tegalsiwalan Probolinggo.</div>
+  </div>
+</footer>
+
+</body>
+</html>
