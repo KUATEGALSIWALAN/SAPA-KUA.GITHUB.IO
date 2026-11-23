@@ -266,37 +266,81 @@
         }
     </style>
     <style>
-  body {
-    color: #333333; /* Warna teks abu-abu gelap agar kontrasnya tetap nyaman dibaca */
-  }
-    </div>
-  </div>
-</div>
+        body {
+            color: #333333;
+        }
 
+        /* RUNNING TEXT SAPA KUA */
+        .running-info {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 42px;
+            overflow: hidden;
+            background: #14532d;
+            color: #ffffff;
+            border-bottom: 3px solid #d4af37;
+            box-sizing: border-box;
+            margin: 0 auto 24px;
+        }
 
+        .running-label {
+            flex-shrink: 0;
+            background: #d4af37;
+            color: #14532d;
+            font-weight: bold;
+            padding: 0 16px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .running-content {
+            overflow: hidden;
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+        }
+
+        .running-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: teksBerjalan 25s linear infinite;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .running-text:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes teksBerjalan {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+</head>
 <body>
-<body>
-
-<!-- RUNNING TEXT SAPA KUA -->
-<div class="running-info">
-  <div class="running-label">
-    <i class="fa-solid fa-bullhorn"></i>&nbsp; INFO KUA
-  </div>
-
-  <div class="running-content">
-    <div class="running-text">
-      SELAMAT DATANG DI SAPA KUA TEGALSIWALAN
-      &nbsp; ✦ &nbsp;
-      Pelayanan KUA Cepat, Mudah, Transparan dan Ramah
-      &nbsp; ✦ &nbsp;
-      MAHAR (Mari Hindari Gratifikasi)
-      &nbsp; ✦ &nbsp;
-      Mari Wujudkan Keluarga Sakinah
+    <!-- RUNNING TEXT SAPA KUA -->
+    <div class="running-info">
+        <div class="running-label">INFO KUA</div>
+        <div class="running-content">
+            <div class="running-text">
+                SELAMAT DATANG DI SAPA KUA TEGALSIWALAN
+                &nbsp; ✦ &nbsp;
+                Pelayanan KUA Cepat, Mudah, Transparan dan Ramah
+                &nbsp; ✦ &nbsp;
+                MAHAR (Mari Hindari Gratifikasi)
+                &nbsp; ✦ &nbsp;
+                Mari Wujudkan Keluarga Sakinah
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<div class="container">
 
     <div class="container">
         
